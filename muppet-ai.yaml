@@ -1,0 +1,381 @@
+Player:
+	ModularBot@muppet-cabal-expand-0:
+		Name: M Cabal - Expand 0
+		Type: muppet-cabal-expand-0
+	ModularBot@muppet-cabal-expand-1:
+		Name: M Cabal - Expand 1
+		Type: muppet-cabal-expand-1
+	ModularBot@muppet-cabal-expand-2:
+		Name: M Cabal - Expand 2
+		Type: muppet-cabal-expand-2
+	ModularBot@muppet-cabal-expand-unlimited:
+		Name: M Cabal - Expand N+
+		Type: muppet-cabal-expand-unlimited
+	GrantConditionOnBotOwner@muppet:
+		Condition: enable-muppet-cabal
+		Bots: muppet-cabal-expand-0, muppet-cabal-expand-1, muppet-cabal-expand-2, muppet-cabal-expand-unlimited
+	GrantConditionOnBotOwner@muppet-cabal-mcv-expand-none:
+		Condition: enable-muppet-cabal-mcv-expand-none
+		Bots: muppet-cabal-expand-0, muppet-cabal-expand-unlimited
+	GrantConditionOnBotOwner@muppet-cabal-expand-limited:
+		Condition: enable-muppet-cabal-expand-limited
+		Bots: muppet-cabal-expand-1, muppet-cabal-expand-2
+	GrantConditionOnBotOwner@muppet-cabal-expand-0:
+		Condition: enable-muppet-cabal-expand-0
+		Bots: muppet-cabal-expand-0
+	GrantConditionOnBotOwner@muppet-cabal-expand-1:
+		Condition: enable-muppet-cabal-expand-1
+		Bots: muppet-cabal-expand-1
+	GrantConditionOnBotOwner@muppet-cabal-expand-2:
+		Condition: enable-muppet-cabal-expand-2
+		Bots: muppet-cabal-expand-2
+	GrantConditionOnBotOwner@muppet-cabal-expand-unlimited:
+		Condition: enable-muppet-cabal-expand-unlimited
+		Bots: muppet-cabal-expand-unlimited
+	GrantConditionOnBotOwner@muppet-no-mcv-build:
+		Condition: enable-muppet-cabal-no-mcv-build
+		Bots: muppet-cabal-expand-0, muppet-cabal-expand-1, muppet-cabal-expand-2
+	SupportPowerBotModule@muppet:
+		RequiresCondition: enable-muppet-cabal
+		Decisions:
+			Airstrike:
+				OrderName: AirstrikePowerInfoOrder
+				MinimumAttractiveness: 2000
+				Consideration@1:
+					Against: Enemy
+					Types: Vehicle, Infantry
+					Attractiveness: 3
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@2:
+					Against: Ally
+					Types: Ground, Water
+					Attractiveness: -20
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@3:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 2c0
+			IonCannonPower:
+				OrderName: IonCannonPowerInfoOrder
+				MinimumAttractiveness: 1000
+				FineScanRadius: 2
+				Consideration@1:
+					Against: Enemy
+					Types: Air, Tank, Vehicle, Infantry, Water
+					Attractiveness: 2
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@2:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@3:
+					Against: Ally
+					Types: Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 3c0
+			NukePower:
+				OrderName: NukePowerInfoOrder
+				MinimumAttractiveness: 3000
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Ally
+					Types: Air, Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 7c0
+	HarvesterBotModule@muppet:
+		RequiresCondition: enable-muppet-cabal
+		HarvesterTypes: harv
+		RefineryTypes: proc
+	BuildingRepairBotModule@muppet:
+		RequiresCondition: enable-muppet-cabal
+	BaseBuilderBotModule@muppet-no-expand:
+		RequiresCondition: enable-muppet-cabal-expand-0
+		BuildingQueues: Building.Nod, Building.GDI
+		DefenseQueues: Defence.Nod, Defence.GDI
+		MinimumExcessPower: 50			# the AI will build buildings and then consider power. so 50 should avoid low power to start and then the higher excess power make it safe mid/late game.
+		MaximumExcessPower: 300
+		ExcessPowerIncrement: 50
+		ExcessPowerIncreaseThreshold: 5
+		ConstructionYardTypes: fact
+		RefineryTypes: proc
+		PowerTypes: nuke,nuk2
+		BarracksTypes: pyle,hand
+		VehiclesFactoryTypes: weap,afld
+		ProductionTypes: pyle,hand,weap,afld,hpad
+		SiloTypes: silo
+		MaxResourceCellsToCheck: 100
+		PlaceDefenseTowardsEnemyChance: 50
+		InititalMinimumRefineryCount: 2
+		AdditionalMinimumRefineryCount: 0
+		MinBaseRadius: 2
+		MaxBaseRadius: 15
+		NewProductionCashThreshold: 4000
+		MinimumDefenseRadius: 0
+		MaximumDefenseRadius: 10
+		BuildingLimits:			# Expects only initial base.
+			proc: 6
+			pyle: 3
+			hand: 3
+			hq: 1
+			weap: 5
+			afld: 5
+			hpad: 0
+			eye: 1
+			tmpl: 1
+			fix: 1
+			silo: 0
+		BuildingFractions:
+			proc: 20
+			pyle: 5
+			hand: 5
+			hq: 2
+			weap: 5
+			afld: 5
+			gtwr: 5
+			gun: 5
+			atwr: 10
+			obli: 10
+			sam: 1
+			eye: 1
+			tmpl: 1
+			fix: 1
+		BuildingDelays:
+			weap: 3000			# 50 seconds - want barracks to be made first
+			afld: 3000			# 50 seconds - want barracks to be made first
+			hq: 5400			# 90 seconds - want war factory to be made first
+			fix: 9000			# 2.5 mins - just so it can rebuild if lost
+			eye: 10800			# 3 mins
+			tmpl: 10800			# 3 mins
+	BaseBuilderBotModule@muppet-cabal-expand-limited:		# Identical to mcv-expand-none, but has extra max refineries.
+		RequiresCondition: enable-muppet-cabal-expand-limited
+		BuildingQueues: Building.Nod, Building.GDI
+		DefenseQueues: Defence.Nod, Defence.GDI
+		MinimumExcessPower: 50			# the AI will build buildings and then consider power. so 50 should avoid low power to start and then the higher excess power make it safe mid/late game.
+		MaximumExcessPower: 300
+		ExcessPowerIncrement: 50
+		ExcessPowerIncreaseThreshold: 5
+		ConstructionYardTypes: fact
+		RefineryTypes: proc
+		PowerTypes: nuke,nuk2
+		BarracksTypes: pyle,hand
+		VehiclesFactoryTypes: weap,afld
+		ProductionTypes: pyle,hand,weap,afld,hpad
+		SiloTypes: silo
+		MaxResourceCellsToCheck: 100
+		PlaceDefenseTowardsEnemyChance: 50
+		InititalMinimumRefineryCount: 2
+		AdditionalMinimumRefineryCount: 0
+		MinBaseRadius: 2
+		MaxBaseRadius: 15
+		NewProductionCashThreshold: 4000
+		MinimumDefenseRadius: 0
+		MaximumDefenseRadius: 10
+		BuildingLimits:			# Expects 2 or 3 bases, so lots of harvesting and production.
+			proc: 12
+			pyle: 3
+			hand: 3
+			hq: 1
+			weap: 5
+			afld: 5
+			hpad: 0
+			eye: 1
+			tmpl: 1
+			fix: 1
+			silo: 0
+		BuildingFractions:
+			proc: 20
+			pyle: 5
+			hand: 5
+			hq: 2
+			weap: 5
+			afld: 5
+			gtwr: 5
+			gun: 5
+			atwr: 10
+			obli: 10
+			sam: 1
+			eye: 1
+			tmpl: 1
+			fix: 1
+		BuildingDelays:
+			weap: 3000			# 50 seconds - want barracks to be made first
+			afld: 3000			# 50 seconds - want barracks to be made first
+			hq: 5400			# 90 seconds - want war factory to be made first
+			eye: 9000			# 2.5 mins
+			tmpl: 9000			# 2.5 mins
+			fix: 14400			# 4 mins - as is forced expansion at this point for this type of AI.
+	BaseBuilderBotModule@muppet-cabal-expand-unlimited: 		# Identical to no-mcv-build, but has some changes to go with the unlimited mcvs.
+		RequiresCondition: enable-muppet-cabal-expand-unlimited
+		BuildingQueues: Building.Nod, Building.GDI
+		DefenseQueues: Defence.Nod, Defence.GDI
+		MinimumExcessPower: 50			# the AI will build buildings and then consider power. so 50 should avoid low power to start and then the higher excess power make it safe mid/late game.
+		MaximumExcessPower: 300
+		ExcessPowerIncrement: 50
+		ExcessPowerIncreaseThreshold: 5
+		ConstructionYardTypes: fact
+		RefineryTypes: proc
+		PowerTypes: nuke,nuk2
+		BarracksTypes: pyle,hand
+		VehiclesFactoryTypes: weap,afld
+		ProductionTypes: pyle,hand,weap,afld,hpad
+		SiloTypes: silo
+		MaxResourceCellsToCheck: 100
+		PlaceDefenseTowardsEnemyChance: 50
+		InititalMinimumRefineryCount: 2
+		AdditionalMinimumRefineryCount: 0
+		MinBaseRadius: 2
+		MaxBaseRadius: 15
+		NewProductionCashThreshold: 4000
+		MinimumDefenseRadius: 0
+		MaximumDefenseRadius: 10
+		BuildingLimits:			# Expects unlimited bases, has no refinery, barracks, or war factory limits.
+			hq: 1
+			hpad: 0
+			eye: 1
+			tmpl: 1
+			fix: 1
+			silo: 0
+		BuildingFractions:
+			proc: 20
+			pyle: 5
+			hand: 5
+			hq: 2
+			weap: 5
+			afld: 5
+			gtwr: 5
+			gun: 5
+			atwr: 10
+			obli: 10
+			sam: 1
+			eye: 1
+			tmpl: 1
+			fix: 1
+		BuildingDelays:
+			weap: 3000			# 50 seconds - want barracks to be made first
+			afld: 3000			# 50 seconds - want barracks to be made first
+			hq: 5400			# 90 seconds - want war factory to be made first
+			eye: 9000			# 2.5 mins
+			tmpl: 9000			# 2.5 mins
+			fix: 10800			# 3 mins - allows expansion from this point, will be drip fed.
+	McvManagerBotModule@muppet-cabal-mcv-expand-none:
+		RequiresCondition: enable-muppet-cabal-mcv-expand-none
+		McvTypes: mcv
+		ConstructionYardTypes: fact
+		McvFactoryTypes: weap,afld
+		RestrictMCVDeploymentFallbackToBase: true
+		MinBaseRadius: 30
+		MaxBaseRadius: 40
+		MinimumConstructionYardCount: 1			# Never force it to expand.
+	McvManagerBotModule@muppet-cabal-expand-1:
+		RequiresCondition: enable-muppet-cabal-expand-1
+		McvTypes: mcv
+		ConstructionYardTypes: fact
+		McvFactoryTypes: weap,afld
+		RestrictMCVDeploymentFallbackToBase: true
+		MinBaseRadius: 30
+		MaxBaseRadius: 40
+		MinimumConstructionYardCount: 2			# Force some multi baseness - but is still a bit random end result so can end up with more from simultanious building.
+	McvManagerBotModule@muppet-cabal-expand-2:
+		RequiresCondition: enable-muppet-cabal-expand-2
+		McvTypes: mcv
+		ConstructionYardTypes: fact
+		McvFactoryTypes: weap,afld
+		RestrictMCVDeploymentFallbackToBase: true
+		MinBaseRadius: 30
+		MaxBaseRadius: 40
+		MinimumConstructionYardCount: 3			# Force some multi baseness - but is still a bit random end result so can end up with more from simultanious building.
+		unlimited
+	SquadManagerBotModule@muppet:
+		RequiresCondition: enable-muppet-cabal
+		SquadSize: 30
+		SquadSizeRandomBonus: 40
+		ExcludeFromSquadsTypes: harv, mcv, e6
+		ConstructionYardTypes: fact
+		ProtectUnitScanRadius: 40
+		MaxBaseRadius: 40
+	UnitBuilderBotModule@muppet-no-mcv-build-gdi:
+		RequiresCondition: enable-muppet-cabal-no-mcv-build
+		UnitQueues: Vehicle.GDI, Infantry.GDI
+		UnitsToBuild:		# These are rationalised to 100% total with minimum of 1% per entry.
+			e1: 80			# Minnigunner
+			e3: 30			# Rocker Soldier
+			e2: 25			# Grenadeer
+			e6: 1			# Engineer - limited
+			harv: 50		# Harvester - limited
+			mtnk: 20		# Medium Tank
+			msam: 25		# Rocket Launcher
+			htnk: 50		# Mammoth Tank
+		UnitLimits:
+			harv: 8
+			e6: 1
+	UnitBuilderBotModule@muppet-no-mcv-build-nod:
+		RequiresCondition: enable-muppet-cabal-no-mcv-build
+		UnitQueues: Vehicle.Nod, Infantry.Nod
+		UnitsToBuild:		# These are rationalised to 100% total with minimum of 1% per entry.
+			e1: 40			# Minnigunner
+			e3: 80			# Rocker Soldier
+			e4: 10			# Flame Infantry
+			e5: 10			# Chemical Warrior
+			e6: 1			# Engineer - limited
+			harv: 100		# Harvester - limited
+			ltnk: 30		# Light Tank
+			arty: 50		# Arty
+			stnk: 40		# Stealth Tank
+		UnitLimits:
+			harv: 8
+			e6: 1
+	UnitBuilderBotModule@muppet-allow-mcv-build-gdi: 		# Identical to no-mcv-build, but has mcv allowed.
+		RequiresCondition: enable-muppet-cabal-expand-unlimited
+		UnitQueues: Vehicle.GDI, Infantry.GDI
+		UnitsToBuild:		# These are rationalised to 100% total with minimum of 1% per entry.
+			e1: 80			# Minnigunner
+			e3: 30			# Rocker Soldier
+			e2: 25			# Grenadeer
+			e6: 1			# Engineer - limited
+			harv: 50		# Harvester - limited
+			mtnk: 20		# Medium Tank
+			msam: 25		# Rocket Launcher
+			htnk: 50		# Mammoth Tank
+			mcv: 1			# the AI will occasionally build an MCV all game long.
+		UnitLimits:
+			harv: 8
+			e6: 1
+			mcv: 1			# the AI will occasionally build an MCV all game long.
+	UnitBuilderBotModule@muppet-allow-mcv-build-nod: 		# Identical to no-mcv-build, but has mcv allowed.
+		RequiresCondition: enable-muppet-cabal-expand-unlimited
+		UnitQueues: Vehicle.Nod, Infantry.Nod
+		UnitsToBuild:		# These are rationalised to 100% total with minimum of 1% per entry.
+			e1: 40			# Minnigunner
+			e3: 80			# Rocker Soldier
+			e4: 10			# Flame Infantry
+			e5: 10			# Chemical Warrior
+			e6: 1			# Engineer - limited
+			harv: 100		# Harvester - limited
+			ltnk: 30		# Light Tank
+			arty: 50		# Arty
+			stnk: 40		# Stealth Tank
+			mcv: 1			# the AI will occasionally build an MCV all game long.
+		UnitLimits:
+			harv: 8
+			e6: 1
+			mcv: 1			# the AI will occasionally build an MCV all game long.
+	CaptureManagerBotModule@muppet:
+		RequiresCondition: enable-muppet-cabal
+		CapturingActorTypes: e6					# engineer
+		CapturableActorTypes: v19, hosp			# aoil derick and hospital
+		CheckCaptureTargetsForVisibility: false
+		CapturableRelationships: neutral
