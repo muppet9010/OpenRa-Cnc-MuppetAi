@@ -1,3 +1,5 @@
+# All delays are set at normal game speed. Timing comments are tested at Fastest game speed, which has the game running twice the speed of the ingame clock.
+
 Player:
 	ModularBot@muppet-cabal-expand-0:
 		Name: M Cabal - Expand 0
@@ -11,7 +13,7 @@ Player:
 	ModularBot@muppet-cabal-expand-unlimited:
 		Name: M Cabal - Expand N+
 		Type: muppet-cabal-expand-unlimited
-	GrantConditionOnBotOwner@muppet:
+	GrantConditionOnBotOwner@muppet-cabal:
 		Condition: enable-muppet-cabal
 		Bots: muppet-cabal-expand-0, muppet-cabal-expand-1, muppet-cabal-expand-2, muppet-cabal-expand-unlimited
 	GrantConditionOnBotOwner@muppet-cabal-mcv-expand-none:
@@ -35,7 +37,7 @@ Player:
 	GrantConditionOnBotOwner@muppet-no-mcv-build:
 		Condition: enable-muppet-cabal-no-mcv-build
 		Bots: muppet-cabal-expand-0, muppet-cabal-expand-1, muppet-cabal-expand-2
-	SupportPowerBotModule@muppet:
+	SupportPowerBotModule@muppet-cabal:
 		RequiresCondition: enable-muppet-cabal
 		Decisions:
 			Airstrike:
@@ -96,11 +98,11 @@ Player:
 					Attractiveness: -10
 					TargetMetric: Value
 					CheckRadius: 7c0
-	HarvesterBotModule@muppet:
+	HarvesterBotModule@muppet-cabal:
 		RequiresCondition: enable-muppet-cabal
 		HarvesterTypes: harv
 		RefineryTypes: proc
-	BuildingRepairBotModule@muppet:
+	BuildingRepairBotModule@muppet-cabal:
 		RequiresCondition: enable-muppet-cabal
 	BaseBuilderBotModule@muppet-no-expand:
 		RequiresCondition: enable-muppet-cabal-expand-0
@@ -299,7 +301,7 @@ Player:
 		MaxBaseRadius: 40
 		MinimumConstructionYardCount: 3			# Force some multi baseness - but is still a bit random end result so can end up with more from simultanious building.
 		unlimited
-	SquadManagerBotModule@muppet:
+	SquadManagerBotModule@muppet-cabal:
 		RequiresCondition: enable-muppet-cabal
 		SquadSize: 30
 		SquadSizeRandomBonus: 40
@@ -307,7 +309,7 @@ Player:
 		ConstructionYardTypes: fact
 		ProtectUnitScanRadius: 40
 		MaxBaseRadius: 40
-	UnitBuilderBotModule@muppet-no-mcv-build-gdi:
+	UnitBuilderBotModule@muppet-cabal-no-mcv-build-gdi:
 		RequiresCondition: enable-muppet-cabal-no-mcv-build
 		UnitQueues: Vehicle.GDI, Infantry.GDI
 		UnitsToBuild:		# These are rationalised to 100% total with minimum of 1% per entry.
@@ -322,7 +324,7 @@ Player:
 		UnitLimits:
 			harv: 8
 			e6: 1
-	UnitBuilderBotModule@muppet-no-mcv-build-nod:
+	UnitBuilderBotModule@muppet-cabal-no-mcv-build-nod:
 		RequiresCondition: enable-muppet-cabal-no-mcv-build
 		UnitQueues: Vehicle.Nod, Infantry.Nod
 		UnitsToBuild:		# These are rationalised to 100% total with minimum of 1% per entry.
@@ -373,7 +375,7 @@ Player:
 			harv: 8
 			e6: 1
 			mcv: 1			# the AI will occasionally build an MCV all game long.
-	CaptureManagerBotModule@muppet:
+	CaptureManagerBotModule@muppet-cabal:
 		RequiresCondition: enable-muppet-cabal
 		CapturingActorTypes: e6					# engineer
 		CapturableActorTypes: v19, hosp			# aoil derick and hospital

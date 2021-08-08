@@ -1,0 +1,189 @@
+# All delays are set at normal game speed. Timing comments are tested at Fastest game speed, which has the game running twice the speed of the ingame clock.
+
+Player:
+	ModularBot@muppet-onslaught:
+		Name: M Tank Onslaught
+		Type: muppet-onslaught
+	GrantConditionOnBotOwner@muppet-onslaught:
+		Condition: enable-muppet-onslaught
+		Bots: muppet-onslaught
+	SupportPowerBotModule@muppet-onslaught:
+		RequiresCondition: enable-muppet-onslaught
+		Decisions:
+			Airstrike:
+				OrderName: AirstrikePowerInfoOrder
+				MinimumAttractiveness: 2000
+				Consideration@1:
+					Against: Enemy
+					Types: Vehicle, Infantry
+					Attractiveness: 3
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@2:
+					Against: Ally
+					Types: Ground, Water
+					Attractiveness: -20
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@3:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 2c0
+			IonCannonPower:
+				OrderName: IonCannonPowerInfoOrder
+				MinimumAttractiveness: 1000
+				FineScanRadius: 2
+				Consideration@1:
+					Against: Enemy
+					Types: Air, Tank, Vehicle, Infantry, Water
+					Attractiveness: 2
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@2:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 2c0
+				Consideration@3:
+					Against: Ally
+					Types: Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 3c0
+			NukePower:
+				OrderName: NukePowerInfoOrder
+				MinimumAttractiveness: 3000
+				Consideration@1:
+					Against: Enemy
+					Types: Structure
+					Attractiveness: 1
+					TargetMetric: Value
+					CheckRadius: 5c0
+				Consideration@2:
+					Against: Ally
+					Types: Air, Ground, Water
+					Attractiveness: -10
+					TargetMetric: Value
+					CheckRadius: 7c0
+	HarvesterBotModule@muppet-onslaught:
+		RequiresCondition: enable-muppet-onslaught
+		HarvesterTypes: harv
+		RefineryTypes: proc
+	BuildingRepairBotModule@muppet-onslaught:
+		RequiresCondition: enable-muppet-onslaught
+	BaseBuilderBotModule@muppet-onslaught:
+		RequiresCondition: enable-muppet-onslaught
+		BuildingQueues: Building.Nod, Building.GDI
+		DefenseQueues: Defence.Nod, Defence.GDI
+		MinimumExcessPower: 10
+		MaximumExcessPower: 300
+		ExcessPowerIncrement: 80
+		ExcessPowerIncreaseThreshold: 4
+		ConstructionYardTypes: fact
+		RefineryTypes: proc
+		PowerTypes: nuke,nuk2
+		BarracksTypes: pyle,hand
+		VehiclesFactoryTypes: weap,afld
+		ProductionTypes: pyle,hand,weap,afld,hpad
+		SiloTypes: silo
+		MaxResourceCellsToCheck: 100
+		PlaceDefenseTowardsEnemyChance: 50
+		InititalMinimumRefineryCount: 0
+		AdditionalMinimumRefineryCount: 0
+		MinBaseRadius: 2
+		MaxBaseRadius: 15
+		NewProductionCashThreshold: 5000
+		MinimumDefenseRadius: 0
+		MaximumDefenseRadius: 10
+		StructureProductionInactiveDelay: 10
+		BuildingLimits:
+			pyle: 1
+			hand: 1
+			weap: 5
+			afld: 5
+			hq: 1
+			hpad: 0
+			eye: 1
+			tmpl: 1
+			fix: 1
+			silo: 0
+			gtwr: 5
+			gun: 3
+		BuildingFractions:
+			proc: 15
+			pyle: 5
+			hand: 5
+			hq: 10		# High priority to build
+			weap: 10
+			afld: 10
+			gtwr: 20
+			gun: 3
+			atwr: 10
+			obli: 10
+			sam: 1
+			eye: 1
+			tmpl: 1
+			fix: 1
+		BuildingDelays:
+			pyle: 2400			# 40 seconds - no rush
+			hand: 2400			# 40 seconds - no rush
+			hq: 5400			# 90 seconds - want war factories to be made
+			gun: 7200			# 2 mins - no need for turrets before then
+			sam: 9000			# 2.5 mins - no need for sams before then
+			fix: 9000			# 2.5 mins - allows expansion from this point, will be drip fed.
+			eye: 10800			# 3 mins
+			tmpl: 10800			# 3 mins
+	McvManagerBotModule@muppet-onslaught:
+		RequiresCondition: enable-muppet-onslaught
+		McvTypes: mcv
+		ConstructionYardTypes: fact
+		McvFactoryTypes: weap,afld
+		RestrictMCVDeploymentFallbackToBase: true
+		MinBaseRadius: 30
+		MaxBaseRadius: 40
+		MinimumConstructionYardCount: 1			# Never force it to expand.
+	SquadManagerBotModule@muppet-onslaught:
+		RequiresCondition: enable-muppet-onslaught
+		SquadSize: 15
+		SquadSizeRandomBonus: 30
+		ExcludeFromSquadsTypes: harv, mcv, e6
+		ConstructionYardTypes: fact
+		ProtectUnitScanRadius: 60
+		MaxBaseRadius: 40
+	UnitBuilderBotModule@muppet-onslaught-gdi:
+		RequiresCondition: enable-muppet-onslaught
+		UnitQueues: Vehicle.GDI, Infantry.GDI
+		UnitsToBuild:		# These are rationalised to 100% total with minimum of 1% per entry.
+			harv: 10		# Harvester - limited
+			mtnk: 35		# Medium Tank
+			msam: 15		# Rocket Launcher
+			htnk: 50		# Mammoth Tank
+			mcv: 1			# the AI will occasionally build an MCV all game long.
+		UnitLimits:
+			harv: 8
+			mcv: 1			# the AI will occasionally build an MCV all game long.
+		UnitDelays:
+	UnitBuilderBotModule@muppet-onslaught-nod: 
+		RequiresCondition: enable-muppet-onslaught
+		UnitQueues: Vehicle.Nod, Infantry.Nod
+		UnitsToBuild:		# These are rationalised to 100% total with minimum of 1% per entry.
+			harv: 10		# Harvester - limited
+			ltnk: 30		# Light Tank
+			ftnk: 1			# Flame tank
+			arty: 40		# Arty
+			stnk: 30		# Stealth Tank
+			mcv: 1			# the AI will occasionally build an MCV all game long.
+		UnitLimits:
+			harv: 8
+			mcv: 1			# the AI will occasionally build an MCV all game long.
+			ftnk: 2
+		UnitDelays:
+	CaptureManagerBotModule@muppet-onslaught:
+		RequiresCondition: enable-muppet-onslaught
+		CapturingActorTypes: e6					# engineer
+		CapturableActorTypes: v19, hosp			# aoil derick and hospital
+		CheckCaptureTargetsForVisibility: false
+		CapturableRelationships: neutral
