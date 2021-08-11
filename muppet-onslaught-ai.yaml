@@ -1,12 +1,27 @@
 # All delays are set at normal game speed. Timing comments are tested at Fastest game speed, which has the game running twice the speed of the ingame clock.
 
 Player:
-	ModularBot@muppet-onslaught:
+	ModularBot@muppet-tank-onslaught:
 		Name: M Tank Onslaught
-		Type: muppet-onslaught
+		Type: muppet-tank-onslaught
+	ModularBot@muppet-infantry-onslaught:
+		Name: M Infantry Onslaught
+		Type: muppet-infantry-onslaught
+	ModularBot@muppet-mixed-onslaught:
+		Name: M Mixed Onslaught
+		Type: muppet-mixed-onslaught
+	GrantConditionOnBotOwner@muppet-tank-onslaught:
+		Condition: enable-muppet-tank-onslaught
+		Bots: muppet-tank-onslaught
+	GrantConditionOnBotOwner@muppet-infantry-onslaught:
+		Condition: enable-muppet-infantry-onslaught
+		Bots: muppet-infantry-onslaught
+	GrantConditionOnBotOwner@muppet-mixed-onslaught:
+		Condition: enable-muppet-mixed-onslaught
+		Bots: muppet-mixed-onslaught
 	GrantConditionOnBotOwner@muppet-onslaught:
 		Condition: enable-muppet-onslaught
-		Bots: muppet-onslaught
+		Bots: muppet-tank-onslaught, muppet-infantry-onslaught, muppet-mixed-onslaught
 	SupportPowerBotModule@muppet-onslaught:
 		RequiresCondition: enable-muppet-onslaught
 		Decisions:
@@ -74,8 +89,26 @@ Player:
 		RefineryTypes: proc
 	BuildingRepairBotModule@muppet-onslaught:
 		RequiresCondition: enable-muppet-onslaught
-	BaseBuilderBotModule@muppet-onslaught:
+	McvManagerBotModule@muppet-onslaught:
 		RequiresCondition: enable-muppet-onslaught
+		McvTypes: mcv
+		ConstructionYardTypes: fact
+		McvFactoryTypes: weap,afld
+		RestrictMCVDeploymentFallbackToBase: true
+		MinBaseRadius: 30
+		MaxBaseRadius: 40
+		MinimumConstructionYardCount: 1			# Never force it to expand.
+	CaptureManagerBotModule@muppet-onslaught:
+		RequiresCondition: enable-muppet-onslaught
+		CapturingActorTypes: e6					# engineer
+		CapturableActorTypes: v19, hosp			# aoil derick and hospital
+		CheckCaptureTargetsForVisibility: false
+		CapturableRelationships: neutral
+		
+		
+		
+	BaseBuilderBotModule@muppet-tank-onslaught:
+		RequiresCondition: enable-muppet-tank-onslaught
 		BuildingQueues: Building.Nod, Building.GDI
 		DefenseQueues: Defence.Nod, Defence.GDI
 		MinimumExcessPower: 10
@@ -91,7 +124,7 @@ Player:
 		SiloTypes: silo
 		MaxResourceCellsToCheck: 100
 		PlaceDefenseTowardsEnemyChance: 50
-		InititalMinimumRefineryCount: 0
+		InititalMinimumRefineryCount: 1
 		AdditionalMinimumRefineryCount: 0
 		MinBaseRadius: 2
 		MaxBaseRadius: 15
@@ -136,25 +169,16 @@ Player:
 			fix: 9000			# 2.5 mins - allows expansion from this point, will be drip fed.
 			eye: 10800			# 3 mins
 			tmpl: 10800			# 3 mins
-	McvManagerBotModule@muppet-onslaught:
-		RequiresCondition: enable-muppet-onslaught
-		McvTypes: mcv
-		ConstructionYardTypes: fact
-		McvFactoryTypes: weap,afld
-		RestrictMCVDeploymentFallbackToBase: true
-		MinBaseRadius: 30
-		MaxBaseRadius: 40
-		MinimumConstructionYardCount: 1			# Never force it to expand.
-	SquadManagerBotModule@muppet-onslaught:
-		RequiresCondition: enable-muppet-onslaught
+	SquadManagerBotModule@muppet-tank-onslaught:
+		RequiresCondition: enable-muppet-tank-onslaught
 		SquadSize: 15
 		SquadSizeRandomBonus: 30
 		ExcludeFromSquadsTypes: harv, mcv, e6
 		ConstructionYardTypes: fact
 		ProtectUnitScanRadius: 60
 		MaxBaseRadius: 40
-	UnitBuilderBotModule@muppet-onslaught-gdi:
-		RequiresCondition: enable-muppet-onslaught
+	UnitBuilderBotModule@muppet-tank-onslaught-gdi:
+		RequiresCondition: enable-muppet-tank-onslaught
 		UnitQueues: Vehicle.GDI, Infantry.GDI
 		UnitsToBuild:		# These are rationalised to 100% total with minimum of 1% per entry.
 			harv: 10		# Harvester - limited
@@ -166,8 +190,8 @@ Player:
 			harv: 8
 			mcv: 1			# the AI will occasionally build an MCV all game long.
 		UnitDelays:
-	UnitBuilderBotModule@muppet-onslaught-nod: 
-		RequiresCondition: enable-muppet-onslaught
+	UnitBuilderBotModule@muppet-tank-onslaught-nod: 
+		RequiresCondition: enable-muppet-tank-onslaught
 		UnitQueues: Vehicle.Nod, Infantry.Nod
 		UnitsToBuild:		# These are rationalised to 100% total with minimum of 1% per entry.
 			harv: 10		# Harvester - limited
@@ -181,9 +205,223 @@ Player:
 			mcv: 1			# the AI will occasionally build an MCV all game long.
 			ftnk: 2
 		UnitDelays:
-	CaptureManagerBotModule@muppet-onslaught:
-		RequiresCondition: enable-muppet-onslaught
-		CapturingActorTypes: e6					# engineer
-		CapturableActorTypes: v19, hosp			# aoil derick and hospital
-		CheckCaptureTargetsForVisibility: false
-		CapturableRelationships: neutral
+		
+		
+		
+	BaseBuilderBotModule@muppet-infantry-onslaught:
+		RequiresCondition: enable-muppet-infantry-onslaught
+		BuildingQueues: Building.Nod, Building.GDI
+		DefenseQueues: Defence.Nod, Defence.GDI
+		MinimumExcessPower: 10
+		MaximumExcessPower: 300
+		ExcessPowerIncrement: 80
+		ExcessPowerIncreaseThreshold: 4
+		ConstructionYardTypes: fact
+		RefineryTypes: proc
+		PowerTypes: nuke,nuk2
+		BarracksTypes: pyle,hand
+		VehiclesFactoryTypes: weap,afld
+		ProductionTypes: pyle,hand,weap,afld,hpad
+		SiloTypes: silo
+		MaxResourceCellsToCheck: 100
+		PlaceDefenseTowardsEnemyChance: 50
+		InititalMinimumRefineryCount: 0
+		AdditionalMinimumRefineryCount: 0
+		MinBaseRadius: 2
+		MaxBaseRadius: 15
+		NewProductionCashThreshold: 3000
+		MinimumDefenseRadius: 0
+		MaximumDefenseRadius: 10
+		StructureProductionInactiveDelay: 10
+		BuildingLimits:
+			pyle: 5
+			hand: 5
+			weap: 1
+			afld: 1
+			hq: 1
+			hpad: 0
+			eye: 1
+			tmpl: 1
+			fix: 1
+			silo: 0
+		BuildingFractions:
+			proc: 15
+			pyle: 10
+			hand: 10
+			hq: 1
+			weap: 5
+			afld: 5
+			gtwr: 20
+			gun: 20
+			atwr: 20
+			obli: 20
+			sam: 1
+			eye: 1
+			tmpl: 1
+			fix: 1
+		BuildingDelays:
+			proc: 600			# 10 seconds - get barracks out first
+			weap: 1800			# 30 seconds - no rush
+			afld: 1800			# 30 seconds - no rush
+			gtwr: 3600			# 1 mins
+			hq: 7200			# 2 mins - needed for high tier infantry
+			gun: 7200			# 2 mins
+			sam: 9000			# 2.5 mins - no need for sams before then
+			fix: 9000			# 2.5 mins - allows expansion from this point, will be drip fed.
+			eye: 10800			# 3 mins
+			tmpl: 10800			# 3 mins
+	SquadManagerBotModule@muppet-infantry-onslaught:
+		RequiresCondition: enable-muppet-infantry-onslaught
+		SquadSize: 40
+		SquadSizeRandomBonus: 60
+		ExcludeFromSquadsTypes: harv, mcv, e6
+		ConstructionYardTypes: fact
+		ProtectUnitScanRadius: 60
+		MaxBaseRadius: 40
+	UnitBuilderBotModule@muppet-infantry-onslaught-gdi:
+		RequiresCondition: enable-muppet-infantry-onslaught
+		UnitQueues: Vehicle.GDI, Infantry.GDI
+		UnitsToBuild:		# These are rationalised to 100% total with minimum of 1% per entry.
+			e1: 120			# Minnigunner
+			e3: 60			# Rocker Soldier
+			e2: 25			# Grenadeer
+			e6: 1			# Engineer - limited
+			harv: 10		# Harvester - limited
+			mcv: 1			# the AI will occasionally build an MCV all game long.
+		UnitLimits:
+			e1: 15
+			e6: 1
+			harv: 8
+			mcv: 1			# the AI will occasionally build an MCV all game long.
+		UnitDelays:
+			e1: 5200
+			e3: 5200
+			e2: 5200
+	UnitBuilderBotModule@muppet-infantry-onslaught-nod: 
+		RequiresCondition: enable-muppet-infantry-onslaught
+		UnitQueues: Vehicle.Nod, Infantry.Nod
+		UnitsToBuild:		# These are rationalised to 100% total with minimum of 1% per entry.
+			e1: 120			# Minnigunner
+			e3: 60			# Rocker Soldier
+			e4: 10			# Flame Infantry
+			e5: 20			# Chemical Warrior
+			e6: 1			# Engineer - limited
+			harv: 10		# Harvester - limited
+			mcv: 1			# the AI will occasionally build an MCV all game long.
+		UnitLimits:
+			e1: 15
+			e6: 1
+			harv: 8
+			mcv: 1			# the AI will occasionally build an MCV all game long.
+		UnitDelays:
+			e1: 5200
+			e3: 5200
+			e4: 5200
+			
+			
+			
+	BaseBuilderBotModule@muppet-mixed-onslaught:
+		RequiresCondition: enable-muppet-mixed-onslaught
+		BuildingQueues: Building.Nod, Building.GDI
+		DefenseQueues: Defence.Nod, Defence.GDI
+		MinimumExcessPower: 10
+		MaximumExcessPower: 300
+		ExcessPowerIncrement: 80
+		ExcessPowerIncreaseThreshold: 4
+		ConstructionYardTypes: fact
+		RefineryTypes: proc
+		PowerTypes: nuke,nuk2
+		BarracksTypes: pyle,hand
+		VehiclesFactoryTypes: weap,afld
+		ProductionTypes: pyle,hand,weap,afld,hpad
+		SiloTypes: silo
+		MaxResourceCellsToCheck: 100
+		PlaceDefenseTowardsEnemyChance: 50
+		InititalMinimumRefineryCount: 1
+		AdditionalMinimumRefineryCount: 0
+		MinBaseRadius: 2
+		MaxBaseRadius: 15
+		NewProductionCashThreshold: 5000
+		MinimumDefenseRadius: 0
+		MaximumDefenseRadius: 10
+		StructureProductionInactiveDelay: 10
+		BuildingLimits:
+			hq: 1
+			hpad: 0
+			eye: 1
+			tmpl: 1
+			fix: 1
+			silo: 0
+			gtwr: 5
+			gun: 3
+		BuildingFractions:
+			proc: 15
+			pyle: 5
+			hand: 5
+			hq: 10		# High priority to build
+			weap: 10
+			afld: 10
+			gtwr: 20
+			gun: 3
+			atwr: 10
+			obli: 10
+			sam: 1
+			eye: 1
+			tmpl: 1
+			fix: 1
+		BuildingDelays:
+			pyle: 2400			# 40 seconds - no rush
+			hand: 2400			# 40 seconds - no rush
+			hq: 5400			# 90 seconds - want war factories to be made
+			gun: 7200			# 2 mins - no need for turrets before then
+			sam: 9000			# 2.5 mins - no need for sams before then
+			fix: 9000			# 2.5 mins - allows expansion from this point, will be drip fed.
+			eye: 10800			# 3 mins
+			tmpl: 10800			# 3 mins
+	SquadManagerBotModule@muppet-mixed-onslaught:
+		RequiresCondition: enable-muppet-mixed-onslaught
+		SquadSize: 20
+		SquadSizeRandomBonus: 40
+		ExcludeFromSquadsTypes: harv, mcv, e6
+		ConstructionYardTypes: fact
+		ProtectUnitScanRadius: 60
+		MaxBaseRadius: 40
+	UnitBuilderBotModule@muppet-mixed-onslaught-gdi:
+		RequiresCondition: enable-muppet-mixed-onslaught
+		UnitQueues: Vehicle.GDI, Infantry.GDI
+		UnitsToBuild:		# These are rationalised to 100% total with minimum of 1% per entry.
+			e1: 80			# Minnigunner
+			e3: 30			# Rocker Soldier
+			e2: 25			# Grenadeer
+			e6: 1			# Engineer - limited
+			harv: 10		# Harvester - limited
+			mtnk: 35		# Medium Tank
+			msam: 15		# Rocket Launcher
+			htnk: 50		# Mammoth Tank
+			mcv: 1			# the AI will occasionally build an MCV all game long.
+		UnitLimits:
+			e6: 1
+			harv: 8
+			mcv: 1			# the AI will occasionally build an MCV all game long.
+		UnitDelays:
+	UnitBuilderBotModule@muppet-mixed-onslaught-nod: 
+		RequiresCondition: enable-muppet-mixed-onslaught
+		UnitQueues: Vehicle.Nod, Infantry.Nod
+		UnitsToBuild:		# These are rationalised to 100% total with minimum of 1% per entry.
+			e1: 40			# Minnigunner
+			e3: 80			# Rocker Soldier
+			e4: 10			# Flame Infantry
+			e5: 10			# Chemical Warrior
+			e6: 1			# Engineer - limited
+			harv: 10		# Harvester - limited
+			ltnk: 30		# Light Tank
+			ftnk: 1			# Flame tank
+			arty: 40		# Arty
+			stnk: 30		# Stealth Tank
+			mcv: 1			# the AI will occasionally build an MCV all game long.
+		UnitLimits:
+			e6: 1
+			harv: 8
+			mcv: 1			# the AI will occasionally build an MCV all game long.
+			ftnk: 2
+		UnitDelays:
