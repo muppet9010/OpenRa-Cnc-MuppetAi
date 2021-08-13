@@ -244,6 +244,8 @@ Player:
 			tmpl: 1
 			fix: 1
 			silo: 0
+			gtwr: 5
+			gun: 3
 		BuildingFractions:
 			proc: 15
 			pyle: 10
@@ -404,6 +406,9 @@ Player:
 			harv: 8
 			mcv: 1			# the AI will occasionally build an MCV all game long.
 		UnitDelays:
+			e1: 5200
+			e3: 5200
+			e2: 5200
 	UnitBuilderBotModule@muppet-mixed-onslaught-nod: 
 		RequiresCondition: enable-muppet-mixed-onslaught
 		UnitQueues: Vehicle.Nod, Infantry.Nod
@@ -415,7 +420,6 @@ Player:
 			e6: 1			# Engineer - limited
 			harv: 10		# Harvester - limited
 			ltnk: 30		# Light Tank
-			ftnk: 1			# Flame tank
 			arty: 40		# Arty
 			stnk: 30		# Stealth Tank
 			mcv: 1			# the AI will occasionally build an MCV all game long.
@@ -423,5 +427,7 @@ Player:
 			e6: 1
 			harv: 8
 			mcv: 1			# the AI will occasionally build an MCV all game long.
-			ftnk: 2
 		UnitDelays:
+			e1: 5200
+			e3: 5200
+			e4: 5200
