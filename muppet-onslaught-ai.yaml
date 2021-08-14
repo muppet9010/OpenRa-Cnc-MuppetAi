@@ -2,13 +2,13 @@
 
 Player:
 	ModularBot@muppet-tank-onslaught:
-		Name: M Tank Onslaught
+		Name: M Onslaught Tank
 		Type: muppet-tank-onslaught
 	ModularBot@muppet-infantry-onslaught:
-		Name: M Infantry Onslaught
+		Name: M Onslaught Infantry
 		Type: muppet-infantry-onslaught
 	ModularBot@muppet-mixed-onslaught:
-		Name: M Mixed Onslaught
+		Name: M Onslaught Mixed
 		Type: muppet-mixed-onslaught
 	GrantConditionOnBotOwner@muppet-tank-onslaught:
 		Condition: enable-muppet-tank-onslaught
@@ -95,7 +95,7 @@ Player:
 		ConstructionYardTypes: fact
 		McvFactoryTypes: weap,afld
 		RestrictMCVDeploymentFallbackToBase: true
-		MinBaseRadius: 30
+		MinBaseRadius: 25
 		MaxBaseRadius: 40
 		MinimumConstructionYardCount: 1			# Never force it to expand.
 	CaptureManagerBotModule@muppet-onslaught:
@@ -132,7 +132,10 @@ Player:
 		MinimumDefenseRadius: 0
 		MaximumDefenseRadius: 10
 		StructureProductionInactiveDelay: 10
+		CheckForNewBasesDelay: 180
+		StructureProductionResumeDelay: 180
 		BuildingLimits:
+			proc: 12
 			pyle: 1
 			hand: 1
 			weap: 5
@@ -143,8 +146,8 @@ Player:
 			tmpl: 1
 			fix: 1
 			silo: 0
-			gtwr: 5
-			gun: 3
+			gtwr: 3
+			gun: 0
 		BuildingFractions:
 			proc: 15
 			pyle: 5
@@ -164,6 +167,7 @@ Player:
 			pyle: 2400			# 40 seconds - no rush
 			hand: 2400			# 40 seconds - no rush
 			hq: 5400			# 90 seconds - want war factories to be made
+			gtwr: 5400			# 1.5 mins
 			gun: 7200			# 2 mins - no need for turrets before then
 			sam: 9000			# 2.5 mins - no need for sams before then
 			fix: 9000			# 2.5 mins - allows expansion from this point, will be drip fed.
@@ -197,7 +201,7 @@ Player:
 			harv: 10		# Harvester - limited
 			ltnk: 30		# Light Tank
 			ftnk: 1			# Flame tank
-			arty: 40		# Arty
+			arty: 30		# Arty
 			stnk: 30		# Stealth Tank
 			mcv: 1			# the AI will occasionally build an MCV all game long.
 		UnitLimits:
@@ -233,7 +237,10 @@ Player:
 		MinimumDefenseRadius: 0
 		MaximumDefenseRadius: 10
 		StructureProductionInactiveDelay: 10
+		CheckForNewBasesDelay: 180
+		StructureProductionResumeDelay: 180
 		BuildingLimits:
+			proc: 12
 			pyle: 5
 			hand: 5
 			weap: 1
@@ -244,8 +251,8 @@ Player:
 			tmpl: 1
 			fix: 1
 			silo: 0
-			gtwr: 5
-			gun: 3
+			gtwr: 3
+			gun: 0
 		BuildingFractions:
 			proc: 15
 			pyle: 10
@@ -265,7 +272,7 @@ Player:
 			proc: 600			# 10 seconds - get barracks out first
 			weap: 1800			# 30 seconds - no rush
 			afld: 1800			# 30 seconds - no rush
-			gtwr: 3600			# 1 mins
+			gtwr: 5400			# 1.5 mins
 			hq: 7200			# 2 mins - needed for high tier infantry
 			gun: 7200			# 2 mins
 			sam: 9000			# 2.5 mins - no need for sams before then
@@ -347,15 +354,18 @@ Player:
 		MinimumDefenseRadius: 0
 		MaximumDefenseRadius: 10
 		StructureProductionInactiveDelay: 10
+		CheckForNewBasesDelay: 180
+		StructureProductionResumeDelay: 180
 		BuildingLimits:
+			proc: 12
 			hq: 1
 			hpad: 0
 			eye: 1
 			tmpl: 1
 			fix: 1
 			silo: 0
-			gtwr: 5
-			gun: 3
+			gtwr: 3
+			gun: 0
 		BuildingFractions:
 			proc: 15
 			pyle: 5
@@ -375,6 +385,7 @@ Player:
 			pyle: 2400			# 40 seconds - no rush
 			hand: 2400			# 40 seconds - no rush
 			hq: 5400			# 90 seconds - want war factories to be made
+			gtwr: 5400			# 1.5 mins
 			gun: 7200			# 2 mins - no need for turrets before then
 			sam: 9000			# 2.5 mins - no need for sams before then
 			fix: 9000			# 2.5 mins - allows expansion from this point, will be drip fed.
