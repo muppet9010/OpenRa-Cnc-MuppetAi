@@ -104,6 +104,23 @@ Player:
 		RefineryTypes: proc
 	BuildingRepairBotModule@muppet-cabal:
 		RequiresCondition: enable-muppet-cabal
+	SquadManagerBotModule@muppet-cabal:
+		RequiresCondition: enable-muppet-cabal
+		SquadSize: 30
+		SquadSizeRandomBonus: 40
+		ExcludeFromSquadsTypes: harv, mcv, e6
+		ConstructionYardTypes: fact
+		ProtectUnitScanRadius: 40
+		MaxBaseRadius: 40
+	CaptureManagerBotModule@muppet-cabal:
+		RequiresCondition: enable-muppet-cabal
+		CapturingActorTypes: e6					# engineer
+		CapturableActorTypes: v19, hosp			# aoil derick and hospital
+		CheckCaptureTargetsForVisibility: false
+		CapturableRelationships: neutral
+		
+		
+		
 	BaseBuilderBotModule@muppet-no-expand:
 		RequiresCondition: enable-muppet-cabal-expand-0
 		BuildingQueues: Building.Nod, Building.GDI
@@ -283,6 +300,9 @@ Player:
 			eye: 9000			# 2.5 mins
 			tmpl: 9000			# 2.5 mins
 			fix: 10800			# 3 mins - allows expansion from this point, will be drip fed.
+			
+			
+			
 	McvManagerBotModule@muppet-cabal-mcv-expand-none:
 		RequiresCondition: enable-muppet-cabal-mcv-expand-none
 		McvTypes: mcv
@@ -311,14 +331,10 @@ Player:
 		MaxBaseRadius: 40
 		MinimumConstructionYardCount: 3			# Force some multi baseness - but is still a bit random end result so can end up with more from simultanious building.
 		unlimited
-	SquadManagerBotModule@muppet-cabal:
-		RequiresCondition: enable-muppet-cabal
-		SquadSize: 30
-		SquadSizeRandomBonus: 40
-		ExcludeFromSquadsTypes: harv, mcv, e6
-		ConstructionYardTypes: fact
-		ProtectUnitScanRadius: 40
-		MaxBaseRadius: 40
+		
+		
+		
+
 	UnitBuilderBotModule@muppet-cabal-no-mcv-build-gdi:
 		RequiresCondition: enable-muppet-cabal-no-mcv-build
 		UnitQueues: Vehicle.GDI, Infantry.GDI
@@ -385,9 +401,3 @@ Player:
 			harv: 8
 			e6: 1
 			mcv: 1			# the AI will occasionally build an MCV all game long.
-	CaptureManagerBotModule@muppet-cabal:
-		RequiresCondition: enable-muppet-cabal
-		CapturingActorTypes: e6					# engineer
-		CapturableActorTypes: v19, hosp			# aoil derick and hospital
-		CheckCaptureTargetsForVisibility: false
-		CapturableRelationships: neutral
